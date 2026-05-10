@@ -1,0 +1,296 @@
+# 🖥️ COMPLETE SETUP GUIDE — PDF Fact Checker
+### ( For Someone Using a Brand New Computer )
+
+---
+
+## 🤔 What Is This Project?
+
+This is a **PDF Fact Checker** web application.
+
+- You upload any PDF file from your computer.
+- The app reads the PDF, sends the content to **Google Gemini AI**.
+- The AI checks every fact inside the PDF.
+- It returns a **Truth Score**, **Fake Score**, and a full **Explanation**.
+
+Think of it like a lie detector — but for documents.
+
+---
+
+## 🧠 How Does It Work? ( Simple Version )
+
+```
+You Upload PDF
+      ↓
+Frontend (React Website) sends it to Backend
+      ↓
+Backend (Python) reads the PDF text
+      ↓
+Sends text to Google Gemini AI
+      ↓
+AI returns Truth %, Fake %, Explanation
+      ↓
+Website shows you the result
+```
+
+---
+
+## 💻 What Is Frontend and Backend?
+
+| Part       | What It Does                                              | Language   |
+|------------|-----------------------------------------------------------|------------|
+| Frontend   | The website you see and click on (UI)                     | React (JS) |
+| Backend    | Hidden server that does the real work (reads PDF, calls AI) | Python     |
+
+Both need to run at the same time for the app to work.
+
+---
+
+## 📥 STEP 1 — Download and Install Everything
+
+### ✅ A. Install Python
+
+Python runs the backend server.
+
+1. Go to: https://www.python.org/downloads/
+2. Click **Download Python 3.12** (latest stable version)
+3. Run the installer
+4. ⚠️ VERY IMPORTANT — check the box that says **"Add Python to PATH"** before clicking Install
+5. Click **Install Now**
+
+To verify Python installed correctly, open **Command Prompt** and type:
+```
+python --version
+```
+You should see something like: `Python 3.12.x`
+
+---
+
+### ✅ B. Install Node.js
+
+Node.js runs the frontend (React website).
+
+1. Go to: https://nodejs.org/
+2. Download the **LTS version** (recommended for most users)
+3. Run the installer — keep clicking Next, everything default is fine
+4. It also installs **npm** automatically (npm is used to install frontend packages)
+
+To verify Node installed correctly, open **Command Prompt** and type:
+```
+node --version
+npm --version
+```
+You should see version numbers like: `v20.x.x` and `10.x.x`
+
+---
+
+### ✅ C. Install VS Code ( Code Editor — Optional but Recommended )
+
+This is where you open and view the project files.
+
+1. Go to: https://code.visualstudio.com/
+2. Download and install it
+3. Open VS Code → File → Open Folder → select the project folder
+
+---
+
+## 📂 STEP 2 — Understand the Project Folder
+
+When you open the project, you will see two main folders:
+
+```
+New folder (2)/
+│
+├── backend/              ← Python server lives here
+│   ├── main.py           ← The main server file (DO NOT EDIT)
+│   └── requirements.txt  ← List of Python packages to install
+│
+└── Pdf extract/          ← React website lives here
+    ├── src/
+    │   └── pages/
+    │       └── pdf_reade.jsx  ← Main page of the website
+    ├── package.json           ← List of JS packages to install
+    └── vite.config.js         ← Vite config (DO NOT EDIT)
+```
+
+---
+
+## ⚙️ STEP 3 — Setup the Backend ( Python Server )
+
+Open **Command Prompt** or **Terminal**.
+
+### 3.1 — Go into the backend folder
+```bash
+cd "New folder (2)/backend"
+```
+
+### 3.2 — Create a Virtual Environment
+A virtual environment keeps your Python packages separate and clean.
+```bash
+python -m venv venv
+```
+This creates a folder called `venv` inside backend. That is normal.
+
+### 3.3 — Activate the Virtual Environment
+
+**On Windows:**
+```bash
+venv\Scripts\activate
+```
+
+**On Mac / Linux:**
+```bash
+source venv/bin/activate
+```
+
+After this, your terminal line will start with `(venv)` — that means it is active.
+
+### 3.4 — Install All Python Packages
+```bash
+pip install -r requirements.txt
+```
+This installs all 5 packages the backend needs. Wait for it to finish.
+
+### 3.5 — Start the Backend Server
+```bash
+uvicorn main:app --reload
+```
+
+You will see:
+```
+INFO:     Uvicorn running on http://127.0.0.1:8000
+```
+
+✅ Backend is now running. **Do NOT close this window.**
+
+---
+
+## 🌐 STEP 4 — Setup the Frontend ( React Website )
+
+Open a **second Command Prompt window** (keep the first one open for the backend).
+
+### 4.1 — Go into the frontend folder
+```bash
+cd "New folder (2)/Pdf extract"
+```
+
+### 4.2 — Install all Node packages
+```bash
+npm install
+```
+This downloads everything listed in `package.json`. It may take 1–2 minutes.
+A folder called `node_modules` will appear — that is normal, do not touch it.
+
+### 4.3 — Start the Frontend
+```bash
+npm run dev
+```
+
+You will see:
+```
+  VITE ready in 300ms
+  ➜  Local:   http://localhost:5173/
+```
+
+✅ Frontend is now running. **Do NOT close this window either.**
+
+---
+
+## 🚀 STEP 5 — Open and Use the App
+
+1. Open your browser (Chrome recommended)
+2. Go to: **http://localhost:5173**
+3. You will see the **PDF Fact Checker** website
+4. Click **Choose File** → select any PDF from your computer
+5. Click **Fact Check**
+6. Wait a few seconds
+7. Results will appear:
+   - ✅ Green card → **Truth Score**
+   - ❌ Red card → **Fake Score**
+   - 📝 Below → **Detailed Explanation**
+
+---
+
+## 📦 What Gets Installed — Full List
+
+### Python Packages ( installed via pip )
+
+| Package               | What It Does                                              |
+|-----------------------|-----------------------------------------------------------|
+| `fastapi`             | Creates the backend API server                            |
+| `uvicorn`             | Runs the FastAPI server                                   |
+| `google-generativeai` | Connects to Google Gemini AI to fact check the content    |
+| `PyPDF2`              | Opens and reads text from your PDF file                   |
+| `python-multipart`    | Allows FastAPI to accept uploaded files                   |
+
+### Node / JS Packages ( installed via npm )
+
+| Package   | What It Does                                              |
+|-----------|-----------------------------------------------------------|
+| `react`   | Builds the UI components (buttons, cards, inputs)         |
+| `vite`    | Super fast development server for React                   |
+
+---
+
+## 🔁 How To Run Again Next Time
+
+Every time you restart your computer, follow these steps:
+
+**Terminal 1 — Start Backend:**
+```bash
+cd "New folder (2)/backend"
+venv\Scripts\activate
+uvicorn main:app --reload
+```
+
+**Terminal 2 — Start Frontend:**
+```bash
+cd "New folder (2)/Pdf extract"
+npm run dev
+```
+
+Then open browser → http://localhost:5173
+
+---
+
+## ❌ Common Problems and Fixes
+
+| Problem                                      | Fix                                                                 |
+|----------------------------------------------|---------------------------------------------------------------------|
+| `python` not recognized                      | Reinstall Python and check "Add to PATH" during installation        |
+| `npm` not recognized                         | Reinstall Node.js                                                   |
+| `pip install` fails                          | Make sure venv is activated (you see `(venv)` in terminal)          |
+| Website shows but Fact Check does nothing    | Make sure backend is running on port 8000                           |
+| `uvicorn` not found                          | Run `pip install uvicorn` manually                                  |
+| Port 5173 or 8000 already in use            | Close other terminals and try again                                  |
+| PDF gives empty result                       | PDF might be scanned/image-based — use a text-based PDF             |
+
+---
+
+## 🔐 Important Security Note
+
+The Google Gemini **API Key** is currently written directly in `main.py` like this:
+
+```python
+genai.configure(api_key="AIzaSy...")
+```
+
+This is fine for personal/local use, but if you ever share the code or push it to GitHub:
+- Never share this key publicly
+- Create a `.env` file and store the key there instead
+
+---
+
+## ✅ Final Checklist — Everything Working
+
+- [ ] Python 3.8+ installed
+- [ ] Node.js LTS installed
+- [ ] Virtual environment created and activated
+- [ ] `pip install -r requirements.txt` completed
+- [ ] `npm install` completed
+- [ ] Backend running → `http://127.0.0.1:8000`
+- [ ] Frontend running → `http://localhost:5173`
+- [ ] PDF uploaded and result received
+
+---
+
+**You are good to go. Both terminals must stay open while using the app.**

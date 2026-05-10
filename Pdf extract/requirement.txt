@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+python-multipart
+google-generativeai
+PyPDF2
+react
+react-dom
+vite

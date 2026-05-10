@@ -1,0 +1,16 @@
+import { useState } from 'preact/hooks'
+import preactLogo from './assets/preact.svg'
+import viteLogo from './assets/vite.svg'
+import heroImg from './assets/hero.png'
+import './app.css'
+import Pdf_reader from './pages/pdf_reade'
+
+export function App() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <Pdf_reader>
+     </Pdf_reader> 
+    </>
+  )
+}

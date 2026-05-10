@@ -1,0 +1,377 @@
+
+
+---
+#This documentaion is created with the help of ai
+---
+Pdf extract/Screenshot 2026-05-10 011326.png
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# DOWNLOAD 1 — PYTHON
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## What is Python?
+Python is a programming language.
+The backend server is written in Python.
+Without Python, the backend will NOT run.
+
+## Download Link
+https://www.python.org/downloads/
+
+## Steps to Install
+1. Open the link above
+2. Click the big yellow button "Download Python 3.12.x"
+3. Open the downloaded file
+4.  VERY IMPORTANT — before clicking install, check the box:
+    "Add Python to PATH"
+5. Click "Install Now"
+6. Wait for it to finish
+7. Click "Close"
+
+## How to Verify Python Installed
+Open Command Prompt and type:
+```
+python --version
+```
+You should see:
+```
+Python 3.12.x
+```
+
+---
+
+---
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# DOWNLOAD 2 — NODE.JS
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## What is Node.js?
+Node.js runs JavaScript on your computer.
+The frontend (React website) needs Node.js to run.
+It also installs NPM which is used to install frontend packages.
+
+## Download Link
+https://nodejs.org/
+
+## Steps to Install
+1. Open the link above
+2. Click "LTS" version (recommended for most users)
+3. Open the downloaded file
+4. Keep clicking Next → everything default is fine
+5. Click Install
+6. Wait for it to finish
+7. Click Finish
+
+## How to Verify Node Installed
+Open Command Prompt and type:
+```
+node --version
+```
+You should see:
+```
+v20.x.x
+```
+
+Then type:
+```
+npm --version
+```
+You should see:
+```
+10.x.x
+```
+
+---
+
+---
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# DOWNLOAD 3 — VS CODE  ( OPTIONAL )
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## What is VS Code?
+VS Code is a code editor.
+You use it to open and view all the project files.
+It is not required to run the project but very helpful.
+
+## Download Link
+https://code.visualstudio.com/
+
+## Steps to Install
+1. Open the link above
+2. Click "Download for Windows"
+3. Open the downloaded file
+4. Accept the agreement
+5. Keep clicking Next → all default settings are fine
+6. Click Install
+7. Click Finish
+
+## How to Open the Project in VS Code
+1. Open VS Code
+2. Click File → Open Folder
+3. Select the project folder "New folder (2)"
+4. All files will appear on the left side
+
+---
+
+---
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# BACKEND LIBRARY 1 — FASTAPI
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## What is FastAPI?
+FastAPI is a Python web framework.
+It creates the backend server.
+It handles the API route /fact_check where the PDF is sent.
+It also handles the /  route which confirms the server is working.
+
+## Used In This Project For
+- Creating the POST /fact_check endpoint
+- Receiving the uploaded PDF file
+- Sending back the AI result as JSON response
+
+## Install Command
+```
+pip install fastapi
+```
+
+## Version to Install
+Latest stable version ( pip installs latest by default )
+
+## Where It Is Used in Code
+```python
+from fastapi import FastAPI, UploadFile, File
+app = FastAPI()
+
+@app.post("/fact_check")
+async def fact_check(file: UploadFile = File(...)):
+    ...
+```
+
+---
+
+---
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# BACKEND LIBRARY 2 — UVICORN
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## What is Uvicorn?
+Uvicorn is a server that runs FastAPI applications.
+FastAPI alone cannot run by itself — it needs Uvicorn to start.
+It is an ASGI server ( Asynchronous Server Gateway Interface ).
+
+## Used In This Project For
+- Starting the backend server on port 8000
+- The --reload flag makes it auto-restart when you edit code
+
+## Install Command
+```
+pip install uvicorn
+```
+
+## How to Start the Server Using Uvicorn
+```
+uvicorn main:app --reload
+```
+
+## What This Command Means
+- main       → the filename is main.py
+- app        → the FastAPI instance variable is called app
+- --reload   → auto restart when code changes
+
+## Server Runs At
+```
+http://127.0.0.1:8000
+```
+
+---
+
+---
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# BACKEND LIBRARY 3 — GOOGLE-GENERATIVEAI
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## What is google-generativeai?
+This is the official Python SDK ( Software Development Kit ) for Google Gemini AI.
+It connects your Python code to Google's Gemini AI model.
+Without this, the AI fact checking will NOT work.
+
+## Used In This Project For
+- Connecting to Google Gemini 2.5 Flash model
+- Sending the extracted PDF text to the AI
+- Getting back the Truth Score, Fake Score, and Explanation
+
+## Install Command
+```
+pip install google-generativeai
+```
+
+## Where It Is Used in Code
+```python
+import google.generativeai as genai
+
+genai.configure(api_key="YOUR_API_KEY")
+
+model = genai.GenerativeModel("gemini-2.5-flash")
+
+response = model.generate_content("your prompt here")
+```
+
+## About the API Key
+- The project already has an API key inside main.py
+- The key connects to Google's servers to use the AI
+- Keep this key private — do not share it publicly
+
+---
+
+---
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# BACKEND LIBRARY 4 — PyPDF2
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## What is PyPDF2?
+PyPDF2 is a Python library for reading PDF files.
+It opens the uploaded PDF and extracts all the text from every page.
+That extracted text is then sent to the AI for fact checking.
+
+## Used In This Project For
+- Opening the saved PDF file
+- Looping through every page of the PDF
+- Extracting all readable text from each page
+- Combining all page text into one big string
+
+## Install Command
+```
+pip install PyPDF2
+```
+
+## Where It Is Used in Code
+```python
+import PyPDF2
+
+with open(file.filename, "rb") as pdf_file:
+    reader = PyPDF2.PdfReader(pdf_file)
+    for page in reader.pages:
+        text = page.extract_text()
+        if text:
+            extracted_text += text
+```
+
+## Important Note
+PyPDF2 only works on text-based PDFs.
+If the PDF is a scanned image ( like a photo of a document ),
+PyPDF2 cannot read it and will return empty text.
+
+---
+
+---
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# BACKEND LIBRARY 5 — PYTHON-MULTIPART
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## What is python-multipart?
+python-multipart allows FastAPI to receive files uploaded from the frontend.
+When the user clicks "Fact Check" and uploads a PDF,
+the file travels from the browser to the backend as multipart/form-data.
+FastAPI CANNOT handle file uploads without this library.
+
+## Used In This Project For
+- Receiving the PDF file that is uploaded from the React frontend
+- Processing the multipart form data that carries the file
+
+## Install Command
+```
+pip install python-multipart
+```
+
+## Why It Is Needed Separately
+FastAPI does not include file upload support by default.
+python-multipart is a separate package that adds this ability.
+If you do not install it, the /fact_check endpoint will crash
+when it receives an uploaded file.
+
+---
+
+---
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# INSTALL ALL BACKEND LIBRARIES AT ONCE
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Instead of installing each one separately, run this one command:
+
+```
+pip install -r requirements.txt
+```
+
+The requirements.txt file contains:
+```
+fastapi
+uvicorn
+google-generativeai
+PyPDF2
+python-multipart
+```
+
+All 5 libraries will be downloaded and installed automatically.
+
+---
+
+---
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# FRONTEND INSTALL — NODE PACKAGES
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## Go into the frontend folder first
+```
+cd "Pdf extract"
+```
+
+## Install all frontend packages
+```
+npm install
+```
+
+This reads the package.json file and installs React, Vite,
+and everything else the frontend needs automatically.
+
+## Start the frontend
+```
+npm run dev
+```
+
+Website runs at:
+```
+http://localhost:5173
+```
+
+---
+
+---
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# FULL ORDER — WHAT TO DO FROM ZERO
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Step 1 → Download and install Python from python.org
+Step 2 → Download and install Node.js from nodejs.org
+Step 3 → Open Command Prompt → go to backend folder
+Step 4 → python -m venv venv
+Step 5 → venv\Scripts\activate
+Step 6 → pip install -r requirements.txt
+Step 7 → uvicorn main:app --reload
+Step 8 → Open a second Command Prompt → go to frontend folder
+Step 9 → npm install
+Step 10 → npm run dev
+Step 11 → Open browser → go to http://localhost:5173
+Step 12 → Upload PDF → Click Fact Check → See Results
+
+---
+
+Both terminals must stay open while using the app.
