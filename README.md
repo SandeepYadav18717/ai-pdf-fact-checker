@@ -3,7 +3,7 @@ pdf fact check
 
 
 ---
-#This documentaion is created with the help of ai
+
 ---
 Pdf extract/Screenshot 2026-05-10 011326.png
 # AI PDF Fact Checker Documentation
